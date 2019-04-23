@@ -1,0 +1,22 @@
+{% load static %}
+{% load tz %}
+<html lang="en">
+<head>
+    <title>battlecats</title>
+    <link rel="stylesheet" href="{% static 'css/base.css' %}">
+</head>
+<body>
+<div class="top_header">
+    <div class="page-title">
+        BATTLECATS
+    </div>
+</div>
+<div class="main-content">
+    {% if block_header %}
+    <h1 class="inline_header centered">{{ block_header }}</h1>
+    {% endif %}
+    {% block content %}
+    {% endblock %}
+</div>
+</body>
+

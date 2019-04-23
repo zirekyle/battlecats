@@ -1,0 +1,224 @@
+body {
+    background: black;
+    width: 100%;
+    margin: 0px;
+    padding: 0px;
+    color: white;
+    font-size: 0.9em;
+}
+
+div.top_header {
+    position: absolute;
+    top: 0px;
+    height: 15%;
+    width: 100%;
+}
+
+div.main-content {
+    position: absolute;
+    top: 10%;
+    bottom: 10%;
+    width: 100%;
+    height: 80%;
+    margin: 0px;
+    padding: 0px;
+}
+
+div.page-title {
+    height: 100%;
+    width: 100%;
+    margin: 20px auto;
+    vertical-align: middle;
+    text-align: center;
+    font-size: 2em;
+    color: white;
+}
+
+div.active_matches {
+    display: grid;
+    grid-template-columns: 33.3% 33.3% 33.3%;
+    grid-template-rows: 100%;
+    height: 100%;
+    width: 100%;
+}
+
+div.container {
+    display: grid;
+    grid-template-columns: 50% 10% 30% 10%;
+    grid-template-rows: repeat(6, 7.5%) 10% repeat(6, 7.5%);
+    height: 100%;
+}
+
+div.container.match_1 {
+    background: #440000;
+}
+
+div.container.match_2 {
+    background: #004400;
+}
+
+div.container.match_3 {
+    background: #000044;
+}
+
+div.bc_name.top {
+    grid-row: 1 / 2;
+}
+
+div.bc_image.top {
+    grid-row: 2 / 6;
+}
+
+div.top.record {
+    grid-row: 6 / 7;
+}
+
+div.bc_name {
+    grid-column: 1 / 2;
+}
+
+div.bc_image, div.record {
+    grid-column: 1 / 2;
+}
+
+div.top.strength {
+    grid-row: 2 / 3;
+}
+
+div.top.defense {
+    grid-row: 3 / 4;
+}
+
+div.top.agility {
+    grid-row: 4 / 5;
+}
+
+div.top.cunning {
+    grid-row: 5 / 6;
+}
+
+div.bc_stat.label, div.bet_value {
+    grid-column: 3 / 4;
+}
+
+div.bc_stat.value, div.bet_button {
+    grid-column: 2 / 3;
+}
+
+div.top.bet {
+    grid-row: 6 / 7;
+}
+
+div.bet.value {
+    grid-column: 2 / 3;
+}
+
+div.bet.button {
+    grid-column: 3 / 4;
+}
+
+div.match_divide {
+    grid-area: 7 / 1 / 7 / 5;
+}
+
+div.bottom.bc_name {
+    grid-row: 8 / 8;
+}
+
+div.bottom.bc_image {
+    grid-row: 9 / 13;
+}
+
+div.bottom.record {
+    grid-row: 13 / 13;
+}
+
+div.bottom.strength {
+    grid-row: 9 / 10;
+}
+
+div.bottom.defense {
+    grid-row: 10 / 11;
+}
+
+div.bottom.agility {
+    grid-row: 11 / 12;
+}
+
+div.bottom.cunning {
+    grid-row: 12 / 13;
+}
+
+div.bottom.bet {
+    grid-row: 13 / 14;
+}
+
+div.bc_name {
+    text-align: center;
+    align-self: center;
+    font-size: 1.5em;
+}
+
+div.bc_image {
+    justify-self: center;
+    align-self: center;
+}
+
+div.record {
+    justify-self: center;
+    align-self: center;
+    font-size: 1.5em;
+}
+
+div.match_divide {
+    justify-self: center;
+    align-self: center;
+}
+
+div.bc_stat.label {
+    justify-self: left;
+    align-self: center;
+}
+
+div.bc_stat.value {
+    justify-self: center;
+    align-self: center;
+    font-size: 1.5em;
+}
+
+div.bet.value {
+    justify-self: center;
+    align-self: center;
+}
+
+div.bet.button {
+    justify-self: left;
+    align-self: center;
+}
+
+img.bc_image {
+    height: 200px;
+    width: 200px;
+    object-fit: cover;
+}
+
+img.vs {
+    height: 50px;
+    width: 50px;
+}
+
+img.vs-line {
+    margin: 0px;
+    padding: 0px;
+    width: 30%;
+}
+
+button, input[type="submit"] {
+	border: solid 1px;
+	border-radius: 3px;
+	moz-border-radius: 3px;
+	font-weight: 700;
+	background-color: darkgreen;
+	color: white;
+	width: 200%;
+}
