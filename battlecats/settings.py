@@ -25,7 +25,9 @@ SECRET_KEY = 'tss1(frx*!!o4x3cq54ax8t&1x#4p7pf_@5g#zs7^af&b9w9*$'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
+
+INTERNAL_IPS = ['127.0.0.1']
 
 
 # Application definition
