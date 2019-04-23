@@ -71,12 +71,12 @@ class Battlecat(models.Model):
 
         stats = utility.random_stats()
 
-        zirecat = Battlecat(name=name, image=image,
-                          strength=stats['strength'], agility=stats['agility'],
-                          cunning=stats['cunning'], defense=stats['defense'],
-                          wins=0, losses=0, debut=datetime.today())
+        battlecat = Battlecat(name=name, image=image,
+                              strength=stats['strength'], agility=stats['agility'],
+                              cunning=stats['cunning'], defense=stats['defense'],
+                              wins=0, losses=0, debut=datetime.today())
 
-        return zirecat
+        return battlecat
 
     def power_level(self):
         """

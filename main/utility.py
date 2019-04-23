@@ -67,18 +67,20 @@ def random_stats():
     :return: random stats list
     """
 
-    stats = {}
+    stats = {
+        'strength': 0,
+        'agility': 0,
+        'cunning': 0,
+        'defense': 0,
+    }
 
     priority = ['strength', 'agility', 'cunning', 'defense']
 
-    for stat in priority:
+    for n in range(1, 40):
 
-        value = random.randrange(10, 100)
+        stat = random.choice(priority)
 
-        while random.randrange(1, 100) > 90:
-            value += 10
-
-        stats[stat] = value
+        stats[stat] += random.randrange(5, 10)
 
     return stats
 

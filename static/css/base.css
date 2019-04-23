@@ -1,3 +1,53 @@
+/* Desktop formatting */
+@media (min-width: 601px) {
+
+    div.active_matches {
+        grid-template-columns: 33.3% 33.3% 33.3%;
+        grid-template-rows: 100%;
+    }
+
+    img.bc_image {
+        height: 200px;
+        width: 200px;
+        object-fit: cover;
+    }
+
+    div.main-content {
+        position: absolute;
+        height: 80%;
+        top: 10%;
+        bottom: 10%;
+    }
+
+    div.container {
+        height: 100%;
+    }
+}
+
+/* Mobile formatting */
+
+@media only screen and (max-width: 600px) {
+
+    div.active_matches {
+        grid-template-columns: 100%;
+        grid-template-rows: 100% 100% 100%;
+    }
+
+    img.bc_image {
+        height: 100px;
+        width: 100px;
+        object-fit: cover;
+    }
+
+    div.main-content {
+        position: relative;
+    }
+
+    div.container {
+        height: 100%;
+    }
+}
+
 body {
     background: black;
     width: 100%;
@@ -15,11 +65,7 @@ div.top_header {
 }
 
 div.main-content {
-    position: absolute;
-    top: 10%;
-    bottom: 10%;
     width: 100%;
-    height: 80%;
     margin: 0px;
     padding: 0px;
 }
@@ -36,8 +82,6 @@ div.page-title {
 
 div.active_matches {
     display: grid;
-    grid-template-columns: 33.3% 33.3% 33.3%;
-    grid-template-rows: 100%;
     height: 100%;
     width: 100%;
 }
@@ -46,7 +90,6 @@ div.container {
     display: grid;
     grid-template-columns: 50% 10% 30% 10%;
     grid-template-rows: repeat(6, 7.5%) 10% repeat(6, 7.5%);
-    height: 100%;
 }
 
 div.container.match_1 {
@@ -194,12 +237,6 @@ div.bet.value {
 div.bet.button {
     justify-self: left;
     align-self: center;
-}
-
-img.bc_image {
-    height: 200px;
-    width: 200px;
-    object-fit: cover;
 }
 
 img.vs {
