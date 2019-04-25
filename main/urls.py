@@ -5,8 +5,7 @@ from django.contrib.staticfiles.urls import staticfiles_urlpatterns
 from . import views
 
 urlpatterns = [
-    path('random_zirecats/<int:count>', views.random_zirecats),
-
+    path('traits/', views.list_all_traits),
     path('', views.index, name='index'),
 ]
 

@@ -22,6 +22,12 @@
     div.container {
         height: 100%;
     }
+
+    div.all_traits {
+        display: grid;
+        grid-template-columns: 10% 20% 60% 10%;
+        grid-template-rows: auto;
+    }
 }
 
 /* Mobile formatting */
@@ -45,6 +51,12 @@
 
     div.container {
         height: 100%;
+    }
+
+    div.all_traits {
+        display: grid;
+        grid-template-columns: 10% 40% 40% 10%;
+        grid-template-rows: auto;
     }
 }
 
@@ -89,7 +101,7 @@ div.active_matches {
 div.container {
     display: grid;
     grid-template-columns: 20% 5% 50% 25%;
-    grid-template-rows: repeat(6, 7.5%) 10% repeat(6, 7.5%);
+    grid-template-rows: 10% repeat(5, 7.5%) 5% repeat(5, 7.5%) 10%;
 }
 
 div.container.match_1 {
@@ -281,14 +293,8 @@ div.bet {
 }
 
 img.vs {
-    height: 50px;
+    height: 25px;
     width: 50px;
-}
-
-img.vs-line {
-    margin: 0;
-    padding: 0;
-    width: 30%;
 }
 
 button, input[type="submit"] {
@@ -297,4 +303,14 @@ button, input[type="submit"] {
     font-weight: 700;
     background-color: darkgreen;
     color: white;
+}
+
+/* all_traits */
+
+div.trait_name, div.trait_desc {
+    background: white;
+    color: black;
+    font-size: 1.5em;
+    padding: 10px;
+    border: 1px solid;
 }

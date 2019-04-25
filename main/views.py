@@ -32,25 +32,13 @@ def index(request):
     return render(request, 'index.html', {'matches': matches, 'values': values})
 
 
-def random_zirecats(request, count=2):
+def list_all_traits(request):
     """
-    Return a random list of battlecats
+    List all traits and their descriptions
     :param request: request object
-    :param count: number of battlecats to return
-    :return: rendered response
+    :return: response
     """
 
-    zirecats = []
+    all_traits = models.Trait.objects.all().order_by('name')
 
-    for x in range(0, count):
-
-        zirecat = models.Zirecat.objects.order_by("?").first()
-
-        while zirecat in zirecats:
-            zirecat = models.Zirecat.objects.order_by("?").first()
-
-        zirecats.append(zirecat)
-
-    width = (100 / count)
-
-    return render(request, 'showdown.html', {'battlecats': zirecats, 'width': width})
+    return render(request, 'all_traits.html', {'all_traits': all_traits})

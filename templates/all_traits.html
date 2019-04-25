@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<div class="all_traits">
+
+{% for trait in all_traits %}
+
+    <div class="left_spacer"></div>
+    <div class="trait_name">{{ trait.name }}</div>
+    <div class="trait_desc">{{ trait.desc }}</div>
+    <div class="right_spacer"></div>
+
+{% endfor %}
+
+</div>
+
+{% endblock %}
