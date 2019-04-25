@@ -3,20 +3,28 @@
 
 <div class="active_matches">
 {% for match in matches %}
-    <div class="match_{{ forloop.counter }} container">
+    {% with mc=forloop.counter %}
+    <div class="match_{{ mc }} container">
     {% for battlecat in match.get_battlecats %}
-        <div class="match_{{ forloop.parentloop.counter }} bc_name {% cycle 'top' 'bottom' %}">{{ battlecat.name }}</div>
-        <div class="match_{{ forloop.parentloop.counter }} bc_image {% cycle 'top' 'bottom' %}"><img class="bc_image" src="{{ battlecat.image }}"></div>
-        <div class="match_{{ forloop.parentloop.counter }} bc_stat {% cycle 'top' 'bottom' %} strength label">STRENGTH</div>
-        <div class="match_{{ forloop.parentloop.counter }} bc_stat {% cycle 'top' 'bottom' %} strength value">{{ battlecat.strength }}</div>
-        <div class="match_{{ forloop.parentloop.counter }} bc_stat {% cycle 'top' 'bottom' %} defense value">{{ battlecat.defense }}</div>
-        <div class="match_{{ forloop.parentloop.counter }} bc_stat {% cycle 'top' 'bottom' %} defense label">DEFENSE</div>
-        <div class="match_{{ forloop.parentloop.counter }} bc_stat {% cycle 'top' 'bottom' %} agility label">AGILITY</div>
-        <div class="match_{{ forloop.parentloop.counter }} bc_stat {% cycle 'top' 'bottom' %} agility value">{{ battlecat.agility }}</div>
-        <div class="match_{{ forloop.parentloop.counter }} bc_stat {% cycle 'top' 'bottom' %} cunning value">{{ battlecat.cunning }}</div>
-        <div class="match_{{ forloop.parentloop.counter }} bc_stat {% cycle 'top' 'bottom' %} cunning label">CUNNING</div>
-        <div class="match_{{ forloop.parentloop.counter }} bet value {% cycle 'top' 'bottom' %}">
-            <select name="match_{{ forloop.parentloop.counter }} bet_value">
+        <div class="match_{{ mc }} {% cycle 'top' 'bottom' as tb %} bc_name">{{ battlecat.name }}</div>
+        <div class="match_{{ mc }} {{ tb }} bc_image"><img alt="IMG" class="bc_image" src="{{ battlecat.image }}"></div>
+        <div class="match_{{ mc }} {{ tb }} bc_record">
+            {{ battlecat.wins }} - {{ battlecat.losses }}
+        </div>
+        <div class="match_{{ mc }} {{ tb }} bc_stat strength label">STRENGTH</div>
+        <div class="match_{{ mc }} {{ tb }} bc_stat strength value">{{ battlecat.strength }}</div>
+        <div class="match_{{ mc }} {{ tb }} bc_stat defense value">{{ battlecat.defense }}</div>
+        <div class="match_{{ mc }} {{ tb }} bc_stat defense label">DEFENSE</div>
+        <div class="match_{{ mc }} {{ tb }} bc_stat agility label">AGILITY</div>
+        <div class="match_{{ mc }} {{ tb }} bc_stat agility value">{{ battlecat.agility }}</div>
+        <div class="match_{{ mc }} {{ tb }} bc_stat cunning value">{{ battlecat.cunning }}</div>
+        <div class="match_{{ mc }} {{ tb }} bc_stat cunning label">CUNNING</div>
+        <div class="match_{{ mc }} {{ tb }} bc_breed">{{  battlecat.breed.name }}</div>
+        {% for trait in battlecat.traits.all %}
+            <div class="match_{{ mc }} {{ tb }} bc_trait trait_{{ forloop.counter }}">{{ trait.name }}</div>
+        {%  endfor %}
+        <div class="match_{{ mc }} {{ tb }} bet">
+            <select name="match_{{ mc }} bet_value">
                 <option value = "10" selected>$100</option>
                 <option value = "20">$200</option>
                 <option value = "30">$300</option>
@@ -28,18 +36,17 @@
                 <option value = "90">$900</option>
                 <option value = "100">$1000</option>
             </select>
-        </div>
-        <div class="match_{{ forloop.parentloop.counter }} bet button {% cycle 'top' 'bottom' %}">
             <input type="submit" class="bet" name="action" value="Bet">
         </div>
-        <div class="match_{{ forloop.parentloop.counter }} record {% cycle 'top' 'bottom' %}">
-            {{ battlecat.wins }} - {{ battlecat.losses }}
+        <div class="match_{{ mc }} {{ tb }} record">
+
         </div>
     {% endfor %}
-        <div class="match_{{ forloop.counter }} match_divide">
+        <div class="match_{{ mc }} match_divide">
             VS
         </div>
     </div>
+    {% endwith %}
 {% endfor %}
 </div>
 {% endblock %}

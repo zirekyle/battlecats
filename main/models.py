@@ -45,6 +45,9 @@ class Breed(models.Model):
     A battlecat breed
     """
 
+    def __str__(self):
+        return self.name
+
     slug = models.CharField(max_length=20)
     name = models.CharField(max_length=100)
     stats = models.TextField()
@@ -61,7 +64,7 @@ class Battlecat(models.Model):
     name = models.CharField(max_length=100, unique=True)
     image = models.CharField(max_length=1000, unique=True)
     image_id = models.CharField(max_length=20, default='')
-    breed = models.CharField(max_length=100, default='')
+    breed = models.ForeignKey(Breed, on_delete=models.CASCADE)
 
     # Individual stats
     strength = models.IntegerField()
@@ -70,7 +73,7 @@ class Battlecat(models.Model):
     defense = models.IntegerField()
 
     # Traits
-    traits = models.ManyToManyField(Trait, blank=True, null=True)
+    traits = models.ManyToManyField(Trait, blank=True)
 
     # Records
     wins = models.IntegerField()
@@ -89,17 +92,29 @@ class Battlecat(models.Model):
 
         name = utility.random_name()
 
+        print('Name: {}'.format(name))
+
         while Battlecat.objects.filter(name=name).count():
             name = utility.random_name()
 
-        breed = Breed.objects.all().order_by('?').first().slug
+        breed = Breed.objects.all().order_by('?').first()
+
+        print('Breed: {}'.format(breed))
 
         image, image_id = utility.random_image(breed)
 
+        print('Image: {}'.format(image))
+
         while Battlecat.objects.filter(image=image).count():
-            name = utility.random_image(breed)
+            image, image_id = utility.random_image(breed)
+
+        print('Generating stats... ', end='')
 
         stats = utility.random_stats()
+
+        print(' DONE')
+
+        print('Saving #1...', end='')
 
         battlecat = Battlecat(name=name, breed=breed, image=image, image_id=image_id,
                               strength=stats['strength'], agility=stats['agility'],
@@ -108,8 +123,14 @@ class Battlecat(models.Model):
 
         battlecat.save()
 
+        print(' DONE')
+
+        print('Generating traits...', end='')
+
         for trait in utility.generate_traits():
             battlecat.traits.add(trait)
+
+        print(' DONE')
 
         battlecat.save()
 

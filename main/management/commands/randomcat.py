@@ -16,6 +16,10 @@ class Command(BaseCommand):
         print('Image ID: {}'.format(bc.image_id))
         print('   Breed: {}'.format(bc.breed))
         print('')
+
+        for trait in bc.traits.all():
+            print('   Trait: {}'.format(trait))
+
         print('Strength: {}'.format(bc.strength))
         print(' Agility: {}'.format(bc.agility))
         print(' Cunning: {}'.format(bc.cunning))

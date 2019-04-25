@@ -60,7 +60,7 @@ def random_image(breed):
 
     api_key = os.environ.get('THECATAPI_KEY')
 
-    url = 'https://api.thecatapi.com/v1/images/search?size=thumb&mime_types=jpg,png&breed_id={}'.format(breed)
+    url = 'https://api.thecatapi.com/v1/images/search?size=thumb&mime_types=jpg,png&breed_id={}'.format(breed.slug)
 
     json = requests.get(url, headers={'x-api-key': api_key}).json()[0]
 
