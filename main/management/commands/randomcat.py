@@ -13,6 +13,8 @@ class Command(BaseCommand):
         print('')
         print('    Name: {}'.format(bc.name))
         print('   Image: {}'.format(bc.image))
+        print('Image ID: {}'.format(bc.image_id))
+        print('   Breed: {}'.format(bc.breed))
         print('')
         print('Strength: {}'.format(bc.strength))
         print(' Agility: {}'.format(bc.agility))

@@ -1,5 +1,6 @@
 # Utility functions
 
+import os
 import requests
 import random
 
@@ -55,10 +56,18 @@ def random_name(source=None):
     return name.title()
 
 
-def random_image():
-    name = requests.get('https://api.thecatapi.com/v1/images/search?size=small&mime_types=jpg',
-                        headers={'x-api-key': '8424f1dc-6cb8-41d8-8962-532e902207a2'}).json()[0]['url']
-    return name
+def random_image(breed):
+
+    api_key = os.environ.get('THECATAPI_KEY')
+
+    url = 'https://api.thecatapi.com/v1/images/search?size=thumb&mime_types=jpg,png&breed_id={}'.format(breed)
+
+    json = requests.get(url, headers={'x-api-key': api_key}).json()[0]
+
+    image = json['url']
+    image_id = json['id']
+
+    return image, image_id
 
 
 def random_stats():
@@ -85,10 +94,32 @@ def random_stats():
     return stats
 
 
-def random_quote():
-    quote = requests.get('https://api.kanye.rest/').json()[0]['quote']
+def generate_traits():
+    """
+    Generate semi-random traits for a battlecat
+    :return: list of trait objects
+    """
 
-    return quote
+    trait_list = []
+
+    for count, trait in enumerate(models.Trait.objects.all().order_by('?')):
+
+        if count == 0:
+            threshold = 1
+
+        elif count == 1:
+            threshold = 25
+
+        elif count == 2:
+            threshold = 75
+
+        else:
+            break
+
+        if random.randrange(1, 101) > threshold:
+            trait_list.append(trait)
+
+    return trait_list
 
 
 def fill_matches(reset=False):

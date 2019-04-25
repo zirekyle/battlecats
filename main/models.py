@@ -26,6 +26,32 @@ class Player(AbstractUser):
         return self.username
 
 
+class Trait(models.Model):
+    """
+    Combat traits for the battlecats
+    """
+
+    def __str__(self):
+        return self.name
+
+    name = models.CharField(max_length=100)
+    desc = models.TextField()
+
+    objects = models.Manager()
+
+
+class Breed(models.Model):
+    """
+    A battlecat breed
+    """
+
+    slug = models.CharField(max_length=20)
+    name = models.CharField(max_length=100)
+    stats = models.TextField()
+
+    objects = models.Manager
+
+
 class Battlecat(models.Model):
     """
     General battlecat model
@@ -34,6 +60,8 @@ class Battlecat(models.Model):
     # Basics
     name = models.CharField(max_length=100, unique=True)
     image = models.CharField(max_length=1000, unique=True)
+    image_id = models.CharField(max_length=20, default='')
+    breed = models.CharField(max_length=100, default='')
 
     # Individual stats
     strength = models.IntegerField()
@@ -41,8 +69,8 @@ class Battlecat(models.Model):
     cunning = models.IntegerField()
     defense = models.IntegerField()
 
-    # Abilities
-    abilities = models.ManyToManyField('Ability', blank=True)
+    # Traits
+    traits = models.ManyToManyField(Trait, blank=True, null=True)
 
     # Records
     wins = models.IntegerField()
@@ -55,7 +83,7 @@ class Battlecat(models.Model):
     @classmethod
     def create(cls):
         """
-        Create a new random Zirecat
+        Create a new random Battlecat
         :return:
         """
 
@@ -64,17 +92,26 @@ class Battlecat(models.Model):
         while Battlecat.objects.filter(name=name).count():
             name = utility.random_name()
 
-        image = utility.random_image()
+        breed = Breed.objects.all().order_by('?').first().slug
+
+        image, image_id = utility.random_image(breed)
 
         while Battlecat.objects.filter(image=image).count():
-            name = utility.random_image()
+            name = utility.random_image(breed)
 
         stats = utility.random_stats()
 
-        battlecat = Battlecat(name=name, image=image,
+        battlecat = Battlecat(name=name, breed=breed, image=image, image_id=image_id,
                               strength=stats['strength'], agility=stats['agility'],
                               cunning=stats['cunning'], defense=stats['defense'],
                               wins=0, losses=0, debut=datetime.today())
+
+        battlecat.save()
+
+        for trait in utility.generate_traits():
+            battlecat.traits.add(trait)
+
+        battlecat.save()
 
         return battlecat
 
@@ -108,22 +145,15 @@ class Battlecat(models.Model):
 
         return in_match
 
+    def add_trait(self, trait):
+        """
+        Add a trait to a battlecat
+        :param trait: trait to be added
+        :return:
+        """
 
-class Ability(models.Model):
-    """
-    Combat abilities for the battlecats
-    """
-
-    styles = (
-        ('MAGIC', 'Magic'),
-        ('TECH', 'Tech'),
-    )
-
-    name = models.CharField(max_length=100)
-    power = models.IntegerField()
-    style = models.CharField(max_length=50, choices=styles)
-
-    objects = models.Manager()
+        if trait not in self.traits.all():
+            self.traits.add(trait)
 
 
 class Match(models.Model):
