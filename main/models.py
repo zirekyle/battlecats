@@ -226,4 +226,36 @@ class Match(models.Model):
 
         return battlecats
 
+    def battle(self):
+        """
+        Simulate a battle between the two battlecats in a match
+        :return: the winner of the match
+        """
+
+        winner = Battlecat()
+
+        a = {
+            'strength': self.a.strength,
+            'agility': self.a.agility,
+            'cunning': self.a.cunning,
+            'defense': self.a.defense,
+            'charm': 50,
+        }
+
+        b = {
+            'strength': self.b.strength,
+            'agility': self.b.agility,
+            'cunning': self.b.cunning,
+            'defense': self.b.defense,
+            'charm': 50,
+        }
+
+        a = utility.apply_breed_modifiers(a, self.a.breed)
+        a = utility.apply_trait_modifiers(self.a, self.b)
+
+        b = utility.apply_breed_modifiers(b, self.b.breed)
+        b = utility.apply_trait_modifiers(self.b, self.a)
+
+        return winner
+
     objects = models.Manager()

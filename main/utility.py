@@ -1,5 +1,6 @@
 # Utility functions
 
+import ast
 import os
 import requests
 import random
@@ -7,6 +8,7 @@ import random
 from bs4 import BeautifulSoup
 
 from . import models
+from .resources.temp_db import temp_db
 
 
 def random_name(source=None):
@@ -137,4 +139,74 @@ def fill_matches(reset=False):
         if not models.Match.create():
             print('Could not fill matches')
             return
+
+
+def apply_temperament_modifiers(stats, temperaments):
+    """
+    Apply temperament modifiers to existing stats
+    :param stats: current stats
+    :param temperaments: list of temperaments
+    :return: resultant stats
+    """
+
+    for temperament in temperaments:
+
+        if temperament.capitalize() in temp_db.keys():
+            stats[temp_db[temperament]['stat']] += temp_db[temperament]['modifier']
+            print('Temperament bonus: {}: {} {}'.format(temperament, temp_db[temperament]['modifier'], temp_db[temperament]['stat']))
+
+    return stats
+
+
+def apply_breed_modifiers(stats, breed):
+    """
+    Apply breed modifiers to existing stats
+    :param stats: current stats of the battlecat
+    :param breed: breed of the battlecat
+    :return: resultant stats of the battlecat
+    """
+
+    bs = ast.literal_eval(breed.stats)
+
+    # weight({'imperial': '7  -  10', 'metric': '3 - 5'})
+
+    weight = bs['weight']['imperial'].split(' - ')
+    weight = (weight[0] + weight[1]) / 2
+
+    stats['strength'] += (5 * weight)
+    stats['defense'] += (5 * weight)
+    stats['agility'] -= (2.5 * weight)
+
+    # temperament(Active, Energetic, Independent, Intelligent, Gentle)
+    # origin(Egypt)
+    # country_codes(EG)
+    # country_code(EG)
+    # life_span(14 - 15)
+    # indoor(0)
+    # lap(1)
+    # alt_names()
+    # adaptability(5)
+    # affection_level(5)
+    # child_friendly(3)
+    # dog_friendly(4)
+    # energy_level(5)
+    # grooming(1)
+    # health_issues(2)
+    # intelligence(5)
+    # shedding_level(2)
+    # social_needs(5)
+    # stranger_friendly(5)
+    # vocalisation(1)
+    # experimental(0)
+    # hairless(0)
+    # natural(1)
+    # rare(0)
+    # rex(0)
+    # suppressed_tail(0)
+    # short_legs(0)
+    # wikipedia_url(https: // en.wikipedia.org / wiki / Abyssinian_(cat))
+    # hypoallergenic(0)
+
+
+
 
